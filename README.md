@@ -1,4 +1,4 @@
-# atweb-vue
+# atweb-solid
 Welcome to @web!
 
 @web lets you host your own static sites on the AT Protocol. It's like [Neocities](https://neocities.org/) or [Nekoweb](https://nekoweb.org/), but on a PDS!
