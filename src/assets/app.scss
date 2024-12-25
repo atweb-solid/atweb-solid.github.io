@@ -1,0 +1,6 @@
+@import 'mary-bsky-components.css';
+
+// fix for webamp + picocss
+#webamp :is(*, *::before, *::after) {
+    background-repeat: unset;
+}

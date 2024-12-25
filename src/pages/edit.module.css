@@ -1,0 +1,41 @@
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+.flex-monaco {
+    margin-bottom: 0.5rem;
+    max-width: 100vw;
+}
+
+.grid {
+    display: grid !important;
+    grid-template-columns: repeat(9, 1fr) !important;
+    grid-template-rows: 1fr !important;
+    grid-column-gap: 0px !important;
+    grid-row-gap: 0px !important;
+}
+
+.left { grid-area: 1 / 1 / 2 / 2; }
+.middle { grid-area: 1 / 2 / 2 / 7; }
+.right { grid-area: 1 / 7 / 2 / 10; }
+
+.active-file-input {
+    width: auto !important;
+    margin-right: 0.5rem !important;
+}
+
+.editor-theme-selector {
+    width: auto !important;
+    float: right; /* right-align */
+}
+
+.submit-button {
+    margin-right: 0.5rem !important;
+}
+
+.iframe {
+    width: 100%;
+    height: 80vh;
+    border: none;
+    background: transparent;
+}

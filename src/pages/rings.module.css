@@ -1,0 +1,19 @@
+.main {
+    padding: 0 1rem !important;
+}
+.ring-member-card :global(.bluesky-embed) {
+    margin: 0 !important;
+}
+
+.form-element-width-auto {
+    margin-right: 0.5rem !important;
+    width: auto !important;
+}
+.kick-member-button {
+    margin-top: 0.5rem !important;
+}
+
+fieldset { /* replace default UA stylesheet */
+    margin-inline: 0 !important;
+    padding: 0 !important;
+}

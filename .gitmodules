@@ -1,0 +1,9 @@
+[submodule "src/extern/userbar-generator"]
+	path = src/extern/userbar-generator
+	url = https://spearcat@github.com/atweb-vue/userbar-generator
+[submodule "src/extern/solid-monaco"]
+	path = src/extern/solid-monaco
+	url = https://github.com/atweb-solid/solid-monaco
+[submodule "lexicons/ziodotsh"]
+	path = lexicons/ziodotsh
+	url = https://github.com/uwx/zio-lexicons
