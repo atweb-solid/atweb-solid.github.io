@@ -7,14 +7,13 @@ import { getRingsUserIsAMemberOf, type getRing } from '@/lib/atproto/atweb-unaut
 import { AtUri } from '@atproto/syntax';
 import { createEffect, createMemo, createSignal, For, on } from 'solid-js';
 import { user, waitForInitialSession } from '@/lib/atproto/signed-in-user';
-import { getDidAndPds } from '@/lib/atproto/pds-helpers';
-import { createSign } from 'crypto';
 import { resolveHandleAnonymously } from '@/lib/atproto/handles/resolve';
 import { useClipboard } from 'solidjs-use';
 import { rkeyToFilepath } from '@/lib/atproto/rkey';
 import type { EventHelper } from '@/lib/solid-utils';
 import { createAsync, useLocation } from '@solidjs/router';
 import styles from './rings.module.css';
+import { getDidAndPds } from 'kitty-agent';
 
 declare module "solid-js" {
     export namespace JSX {

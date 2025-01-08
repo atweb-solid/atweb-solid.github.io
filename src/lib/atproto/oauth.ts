@@ -10,8 +10,6 @@ configureOAuth({
 });
 
 export class AtpOauthClient {
-    constructor() {}
-
     async authenticate(handle: string, showInputCodeModal: () => Promise<string>) {
         const { identity, metadata } = await resolveFromIdentity(handle);
 

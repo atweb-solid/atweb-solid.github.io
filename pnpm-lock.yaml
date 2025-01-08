@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@atcute/cid':
-        specifier: ^1.0.2
-        version: 1.0.2
+        specifier: ^2.1.0
+        version: 2.1.0
       '@atcute/client':
         specifier: ^2.0.6
         version: 2.0.6
@@ -53,6 +53,9 @@ importers:
       jszip:
         specifier: ^3.10.1
         version: 3.10.1
+      kitty-agent:
+        specifier: ^8.2.0
+        version: 8.2.0(@atcute/cid@2.1.0)(@atcute/client@2.0.6)(@atcute/oauth-browser-client@1.0.7)(@atproto/syntax@0.3.1)
       mime-db:
         specifier: ^1.53.0
         version: 1.53.0
@@ -130,9 +133,6 @@ packages:
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
     engines: {node: '>=6.0.0'}
 
-  '@atcute/base32@1.0.1':
-    resolution: {integrity: sha512-oHnrPXDlkLd4283rz5C4KLnL46/D9mjpFgK17iTPU7OooyNSz+elr8kXN9ReZgzgnjWZHIr8Dp2splEm9hjNhg==}
-
   '@atcute/bluesky-richtext-parser@1.0.7':
     resolution: {integrity: sha512-nOvU699OXiGMbyswao7JJnY0C9WkwE7PVC/m5WWt0UN9fsXSOor9IZWw+v9SATp+94BTJoG38XyUomUaJnoQRA==}
 
@@ -147,11 +147,14 @@ packages:
     peerDependencies:
       '@atcute/client': ^1.0.0 || ^2.0.0
 
-  '@atcute/cid@1.0.2':
-    resolution: {integrity: sha512-aRtt4/5pHCpKVvqtuvxWC8Koet9A7mT8t3fWspOJSj6lcP2QyKKpSUx3z0jSZ+M1Kf2UZ25eo6btcM5zmmhK3g==}
+  '@atcute/cid@2.1.0':
+    resolution: {integrity: sha512-Twsf5OKGk6QEqU1Z74feo1eRmnznYFzdCxtCISCutedCL2I2eGzD1F7JZRA+heTp5kgV5Bwvxvjn7VkGQhq3Sg==}
 
   '@atcute/client@2.0.6':
     resolution: {integrity: sha512-mhdqEicGUx0s5HTFOLpz91rcLS9j/g63de0nmAqv7blhU3j+xBf4le54qr2YIXNfnReZI7EwLYLX/YIBez4LGA==}
+
+  '@atcute/multibase@1.1.1':
+    resolution: {integrity: sha512-3HAlVjVB8HSVO2BL7H1e5lsVAtcMR+tEjgfbFqYqt3cCFY3LbIYL7f6FJpB35fYjupiPOCyRWlFL1cwAAurmzA==}
 
   '@atcute/oauth-browser-client@1.0.7':
     resolution: {integrity: sha512-ikf3FscGZXYU+S0K4n9eDUMg6pS//g/Zr159+bznxO3Wn2JYBohEIxzy29OIEExXD/qAYMq9kfqvo2d0gs4JWQ==}
@@ -159,8 +162,11 @@ packages:
   '@atcute/tid@1.0.1':
     resolution: {integrity: sha512-3CjXIauzpIXi86MS1HLCDTzXmxtghSynNpWygd6pD/hnwJX4CK04ZU7S44qGVcLQmpiuAiGtqABkBAAK3V8BRw==}
 
-  '@atcute/varint@1.0.1':
-    resolution: {integrity: sha512-GXWu+CIfpQGSMSOSUskjwU/licxH8WcyX4t11mRKafQIE4Yi3v5GuchMYVOu89YX15tY93QzY/0zMQDCWoke8Q==}
+  '@atcute/uint8array@1.0.1':
+    resolution: {integrity: sha512-AAnlFKyfDRgb9GNZJbhQ6OuMhbmNPirQyapb8KnmcEhxQZ3+tt+4NcwqekEegY4MpNqSTYeeTdyxq0wGZv1JHg==}
+
+  '@atcute/varint@1.0.2':
+    resolution: {integrity: sha512-0O31hePzzr4O3NGWHUKKOyta6CGSL+AtN8iir8grGxu9jXyI7DBARlw6PbgKA6uTAvsXdpmRmF8MX+p0TsLnNg==}
 
   '@atproto/syntax@0.3.1':
     resolution: {integrity: sha512-fzW0Mg1QUOVCWUD3RgEsDt6d1OZ6DdFmbKcDdbzUfh0t4rhtRAC05KbZYmxuMPWDAiJ4BbbQ5dkAc/mNypMXkw==}
@@ -1368,6 +1374,14 @@ packages:
   jszip@3.10.1:
     resolution: {integrity: sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==}
 
+  kitty-agent@8.2.0:
+    resolution: {integrity: sha512-kmaHVN7bbLCjxLAJVsJWPxdJhzRg7qgHmJW+/mRXKjpXrz4Ks2BLrdVTxpCrjBFURSPzlbwT3zwVzgAD5d7wmQ==}
+    peerDependencies:
+      '@atcute/cid': ^2.1.0
+      '@atcute/client': ^2.0.6
+      '@atcute/oauth-browser-client': ^1.0.9
+      '@atproto/syntax': ^0.3.1
+
   lie@3.3.0:
     resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
 
@@ -2200,8 +2214,6 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.18
 
-  '@atcute/base32@1.0.1': {}
-
   '@atcute/bluesky-richtext-parser@1.0.7': {}
 
   '@atcute/bluesky-richtext-segmenter@1.0.5(@atcute/bluesky@1.0.11(@atcute/client@2.0.6))(@atcute/client@2.0.6)':
@@ -2213,12 +2225,17 @@ snapshots:
     dependencies:
       '@atcute/client': 2.0.6
 
-  '@atcute/cid@1.0.2':
+  '@atcute/cid@2.1.0':
     dependencies:
-      '@atcute/base32': 1.0.1
-      '@atcute/varint': 1.0.1
+      '@atcute/multibase': 1.1.1
+      '@atcute/uint8array': 1.0.1
+      '@atcute/varint': 1.0.2
 
   '@atcute/client@2.0.6': {}
+
+  '@atcute/multibase@1.1.1':
+    dependencies:
+      '@atcute/uint8array': 1.0.1
 
   '@atcute/oauth-browser-client@1.0.7':
     dependencies:
@@ -2227,7 +2244,9 @@ snapshots:
 
   '@atcute/tid@1.0.1': {}
 
-  '@atcute/varint@1.0.1': {}
+  '@atcute/uint8array@1.0.1': {}
+
+  '@atcute/varint@1.0.2': {}
 
   '@atproto/syntax@0.3.1': {}
 
@@ -3464,6 +3483,13 @@ snapshots:
       pako: 1.0.11
       readable-stream: 2.3.8
       setimmediate: 1.0.5
+
+  kitty-agent@8.2.0(@atcute/cid@2.1.0)(@atcute/client@2.0.6)(@atcute/oauth-browser-client@1.0.7)(@atproto/syntax@0.3.1):
+    dependencies:
+      '@atcute/cid': 2.1.0
+      '@atcute/client': 2.0.6
+      '@atcute/oauth-browser-client': 1.0.7
+      '@atproto/syntax': 0.3.1
 
   lie@3.3.0:
     dependencies:

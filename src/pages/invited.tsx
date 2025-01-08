@@ -1,9 +1,9 @@
 import SignInGate from "@/components/SignInGate";
 import { UsePico } from "@/components/UsePico";
 import { getRing } from "@/lib/atproto/atweb-unauthed";
-import { getDidAndPds } from "@/lib/atproto/pds-helpers";
 import { user, waitForInitialSession } from "@/lib/atproto/signed-in-user";
 import { createAsync, useParams } from "@solidjs/router";
+import { getDidAndPds } from "kitty-agent";
 import { createSignal } from "solid-js";
 
 export default function Invited() {

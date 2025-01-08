@@ -1,4 +1,4 @@
-import { KittyAgent } from './kitty-agent';
+import type { KittyAgent } from 'kitty-agent';
 import type { At, IoGithubAtwebFile } from '@atcute/client/lexicons';
 import { user } from './signed-in-user';
 import { AtUri } from '@atproto/syntax';
@@ -24,7 +24,7 @@ export class AtwebClient {
 
         return files.records.map(e => ({
             ...e.value,
-            uri: new AtUri(e.uri),
+            uri: e.uri,
         }));
     }
 

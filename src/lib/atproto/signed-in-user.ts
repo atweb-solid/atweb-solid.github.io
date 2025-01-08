@@ -6,9 +6,8 @@ import {
 import type { At } from '@atcute/client/lexicons';
 
 import { AtpOauthClient } from './oauth';
-import { KittyAgent } from './kitty-agent';
+import { getDidAndPds, KittyAgent } from 'kitty-agent';
 import { AtwebClient } from './atweb-client';
-import { getDidAndPds } from './pds-helpers';
 import { resolveHandleAnonymously } from './handles/resolve';
 import { signal } from '../utils';
 import { createComputed, createEffect, createMemo, createSignal } from 'solid-js';

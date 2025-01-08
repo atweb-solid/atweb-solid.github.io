@@ -1,12 +1,9 @@
 import { simpleFetchHandler } from "@atcute/client";
-import { KittyAgent } from "./kitty-agent";
+import { getDidAndPds, KittyAgent } from "kitty-agent";
 import type { At, IoGithubAtwebRing } from "@atcute/client/lexicons";
-import { getDidAndPds } from "./pds-helpers";
 import { AtUri } from "@atproto/syntax";
 import { resolveHandleAnonymously } from "./handles/resolve";
 import type { Awaitable } from "../utils";
-
-const unauthedAgent = new KittyAgent({ handler: simpleFetchHandler({ service: 'https://bsky.social' }) });
 
 export function formatGetBlobUrl(pds: string, did: At.DID, cid: string, useCdn = false): string {
     if (useCdn) {
@@ -52,8 +49,12 @@ export async function getGetBlobUrl(
         const { handleOrDid, cid } = uri;
         const { did, pds } = await getDidAndPds(handleOrDid);
         return formatGetBlobUrl(pds, did, cid);
-    } else if (uri?.startsWith('atfile://')) {
+    }
+
+    if (uri?.startsWith('atfile://')) {
         const [did, rkey] = uri.slice('atfile://'.length).trim().split('/');
+        
+        const unauthedAgent = await KittyAgent.getOrCreatePds(did as At.DID);
 
         const cid = await getCachedBlob(
             {
@@ -78,15 +79,21 @@ export async function getGetBlobUrl(
 
         const { pds } = await getDidAndPds(did);
         return formatGetBlobUrl(pds, did as At.DID, cid, useCdn);
-    } else if (uri?.startsWith('blob://')) {
+    }
+    
+    if (uri?.startsWith('blob://')) {
         const [did, cid] = uri.slice('blob://'.length).trim().split('/');
 
         const { pds } = await getDidAndPds(did);
         return formatGetBlobUrl(pds, did as At.DID, cid, useCdn);
-    } else if (uri?.startsWith('at://')) {
+    }
+    
+    if (uri?.startsWith('at://')) {
         const at = new AtUri(uri);
 
         const { did, pds } = await getDidAndPds(at.host);
+
+        const unauthedAgent = await KittyAgent.getOrCreatePds(did);
 
         const cid = await getCachedBlob(
             {
@@ -107,7 +114,9 @@ export async function getGetBlobUrl(
                     }
 
                     return record.body.ref.$link;
-                } else if (at.collection === 'blue.zio.atfile.upload') {
+                }
+
+                if (at.collection === 'blue.zio.atfile.upload') {
                     const { value: record } = await unauthedAgent.tryGet({
                         collection: 'blue.zio.atfile.upload',
                         repo: did,
@@ -119,9 +128,9 @@ export async function getGetBlobUrl(
                     }
 
                     return record.blob.ref.$link;
-                } else {
-                    throw new GetGetBlobError('CollectionUnsupported');
                 }
+
+                throw new GetGetBlobError('CollectionUnsupported');
             }
         );
 
@@ -157,6 +166,8 @@ export interface Page extends PageMeta {
 }
 
 export async function downloadFile(did: At.DID, rkey: string): Promise<Page> {
+    const unauthedAgent = await KittyAgent.getOrCreatePds(did);
+
     const { value: record, uri } = await unauthedAgent.get({
         collection: 'io.github.atweb.file',
         repo: did,
@@ -176,7 +187,7 @@ export async function downloadFile(did: At.DID, rkey: string): Promise<Page> {
         ...record,
         blob: blob,
         bodyOriginal: record.body,
-        uri,
+        uri: uri.toString(),
         did,
 
         get blobBuffer() {
@@ -190,6 +201,8 @@ export async function downloadFile(did: At.DID, rkey: string): Promise<Page> {
 }
 
 export async function getRingsUserIsAMemberOf(didOrHandle: string) {
+    const unauthedAgent = await KittyAgent.getOrCreatePds(didOrHandle);
+
     const { records } = await unauthedAgent.list({
         collection: 'io.github.atweb.ringMembership',
         repo: didOrHandle,
@@ -218,6 +231,8 @@ async function arrayFromAsync<T>(generator: AsyncIterable<T>): Promise<T[]> {
 }
 
 export async function tryGetRing(repo: string, rkey: string) {
+    const unauthedAgent = await KittyAgent.getOrCreatePds(repo);
+
     const result = await unauthedAgent.tryGet({
         collection: 'io.github.atweb.ring',
         repo,
@@ -231,11 +246,13 @@ export async function tryGetRing(repo: string, rkey: string) {
         createdAt: result.value.createdAt,
         members: await arrayFromAsync(getMembershipStatuses(repo, result.value.members ?? [])),
         cid: result.cid,
-        uri: new AtUri(result.uri),
+        uri: result.uri,
     };
 }
 
 export async function getRing(repo: string, rkey: string) {
+    const unauthedAgent = await KittyAgent.getOrCreatePds(repo);
+
     const result = await unauthedAgent.get({
         collection: 'io.github.atweb.ring',
         repo,
@@ -247,12 +264,14 @@ export async function getRing(repo: string, rkey: string) {
         createdAt: result.value.createdAt,
         members: await arrayFromAsync(getMembershipStatuses(repo, result.value.members ?? [])),
         cid: result.cid,
-        uri: new AtUri(result.uri),
+        uri: result.uri,
     };
 }
 
 async function *getMembershipStatuses(owner: string, members: IoGithubAtwebRing.Member[]) {
     owner = await resolveHandleAnonymously(owner);
+
+    const unauthedAgent = await KittyAgent.getOrCreatePds(owner);
 
     for (const member of members) {
         const uri = new AtUri(member.membership);
